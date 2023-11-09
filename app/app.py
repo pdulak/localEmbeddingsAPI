@@ -3,6 +3,7 @@ from sentence_transformers import SentenceTransformer
 import json
 import requests
 from json2html import *
+from loguru import logger
 
 app = Flask(__name__)
 qdrant_url = "http://qdrant-api:6333/"
@@ -41,12 +42,18 @@ def upsert():
     url = f"{qdrant_url}collections/{qdrant_collection}/points"
     headers = {"Content-Type": "application/json"}
 
-    phrase = request.form['phrase']
+    if request.form:
+        phrase = request.form['phrase']
+        id = request.form['ID']
+    else:
+        phrase = request.json['phrase']
+        id = request.json['ID']
+
     embeddings = model.encode(phrase)
 
     data = {
         "points":[ {
-            "id": request.form['ID'],
+            "id": id,
             "payload": { "phrase": phrase },
             "vector": embeddings.tolist()
         } ]
@@ -60,7 +67,10 @@ def upsert():
 @app.route('/search/', methods=['POST'])
 def search_post():
     model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
-    embeddings = model.encode(request.form['search_term'])
+    if request.form:
+        embeddings = model.encode(request.form['search_term'])
+    else:
+        embeddings = model.encode(request.json['search_term'])
     url = f"{qdrant_url}collections/{qdrant_collection}/points/search"
     headers = {"Content-Type": "application/json"}
     data = {
