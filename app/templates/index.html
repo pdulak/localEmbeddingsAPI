@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Data</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <main class="container">
+        <section>
+            <p>Remember to also initialize Qdrant database. Please note that Upsert may take a long time, because model files will be downloaded first</p>
+            <a href="/initQdrant" role="button">1. Initialize Qdrant</a>
+            <a href="/upsert" role="button">2. Upsert embeddings</a>
+        </section>
+        <section>
+            <p>Use the following links to interact with the database:</p>
+            <a href="/search" role="button" >Test search</a>
+        </section>
+    </main>
+</body>
+</html>

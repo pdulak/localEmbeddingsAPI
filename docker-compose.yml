@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  qdrant-api:
+    container_name: qdrant-api
+    image: generall/qdrant
+    ports:
+      - "6333:6333"
+
+  web-qdrant-api:
+    build: ./app
+    command: flask run --host=0.0.0.0 --reload --debugger
+    volumes:
+      - ./app:/usr/src/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - qdrant-api
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
