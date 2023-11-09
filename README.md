@@ -1,6 +1,6 @@
 # Qdrant and embedding - local API
 
-The purpose of this repo is to use local embedding and Qdrant API
+The purpose of this repo is to use embedding and Qdrant running locally as an API
 
 ## How to run
 
