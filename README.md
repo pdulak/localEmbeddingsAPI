@@ -32,6 +32,10 @@ UUID in the ID field.
 
 * `search_term` - phrase to embed and search for nearest neighbors (required)
 
+### `POST /embed/`
+
+* `phrase` - phrase to embed (required)
+
 ## Developer notes
 
 ### New packages in `requirements.txt`
