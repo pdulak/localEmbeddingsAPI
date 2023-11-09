@@ -36,6 +36,18 @@ def upsert_get():
     return render_template("upsert.html")
 
 
+@app.route('/embed/', methods=['POST'])
+def embed():
+    model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
+    if request.form:
+        phrase = request.form['phrase']
+    else:
+        phrase = request.json['phrase']
+    embeddings = model.encode(phrase)
+
+    return jsonify(embeddings.tolist()), 200
+
+
 @app.route('/upsert/', methods=['POST'])
 def upsert():
     model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
