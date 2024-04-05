@@ -5,8 +5,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 </head>
 <body>
+    <script>
+        function get_uuid() {
+            fetch('https://www.uuidtools.com/api/generate/v1')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementsByName('ID')[0].value = data[0];
+            });
+        }
+    </script>
     <main class="container">
     <form action="/upsert/" method="POST">
+        <input type="button" value="Generate UUID" onclick="get_uuid()"><br>
         UUID: <input type="text" name="ID"><br>
         Phrase to add: <input type="text" name="phrase"><br>
         <input type="submit" value="Submit">
